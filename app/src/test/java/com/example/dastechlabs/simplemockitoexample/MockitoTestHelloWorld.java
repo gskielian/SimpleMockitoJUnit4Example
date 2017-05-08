@@ -2,8 +2,12 @@ package com.example.dastechlabs.simplemockitoexample;
 
 
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnit;
+import org.mockito.junit.MockitoRule;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
@@ -15,18 +19,25 @@ import static org.mockito.MockitoAnnotations.initMocks;
 
 public class MockitoTestHelloWorld {
 
-    // our non mock objects (note the critical newline between this and above)
-    CompositeClass compositeClass;
+    /**
+     * same function as initMocks
+     * allows construction of all mock objects automatically
+     */
+    @Rule public MockitoRule mockitoRule = MockitoJUnit.rule();
 
     /**
      * you can create a list of all mock objects to be init using the @Mock annotaton
      *
      * we can then use `initMocks(this)` to initialize all mock objects
+     * (or the Mockito Rule above)
      * instead of spending one line of code per new mock object
      */
-    @Mock
-    HelloWorldMockito helloWorldMockito;
+    @Mock HelloWorldMockito helloWorldMockito;
 
+    /**
+     * inject mocks takes mock objects and uses them as constructors to the listed below
+     */
+    @InjectMocks CompositeClass compositeClass;
 
     /**
      * @Before allows us to set up values/behaviors/objects needed for test
@@ -34,8 +45,7 @@ public class MockitoTestHelloWorld {
      */
     @Before
     public void createObjects() {
-        // init mocks and define mock behavior
-        initMocks(this); // initializes all mock objects from @Mock
+        // define mock behavior
         when(helloWorldMockito.getFirstWord()).thenReturn("Hello");
         when(helloWorldMockito.getSecondWord()).thenReturn("World");
 
