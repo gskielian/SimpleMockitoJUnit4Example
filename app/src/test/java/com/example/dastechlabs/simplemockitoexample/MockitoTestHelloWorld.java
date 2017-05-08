@@ -19,6 +19,7 @@ import static org.mockito.MockitoAnnotations.initMocks;
 
 public class MockitoTestHelloWorld {
 
+
     /**
      * same function as initMocks
      * allows construction of all mock objects automatically
@@ -26,7 +27,7 @@ public class MockitoTestHelloWorld {
     @Rule public MockitoRule mockitoRule = MockitoJUnit.rule();
 
     /**
-     * you can create a list of all mock objects to be init using the @Mock annotaton
+     * you can create a list of all mock objects to be init using the @Mock annotation
      *
      * we can then use `initMocks(this)` to initialize all mock objects
      * (or the Mockito Rule above)
